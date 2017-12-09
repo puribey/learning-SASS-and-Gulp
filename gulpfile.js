@@ -60,7 +60,7 @@ gulp.task('scripts', function(){
 // compile sass // type gulp sass in terminal to run 
 
 gulp.task('sass', function(){
-	gulp.src('src/sass/*.scss')
+	gulp.src('src/sass/style.scss')
 		.pipe(sass().on('error',sass.logError))
 		.pipe(gulp.dest('dist/css'));
 });

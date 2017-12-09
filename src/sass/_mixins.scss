@@ -1,0 +1,105 @@
+/* challenge 2: mixins
+allow us to re-use of style 
+@include
+separate file like variables => _mixins.scss
+
+ @mixin alert-text($color) {
+ 	background-color:$color;
+ 	color:white;
+ }
+
+ .error-text {
+	@include alert-text(blue);
+ }
+
+ .has-error:after{
+ 	@include alert-text(red);
+ 	display:inline-block;
+ 	content:attr(data-error);
+ }
+
+ */
+
+ @mixin btn-color($color){
+ 	background-color:$color;
+ }
+
+ @mixin range-thumb() {
+ 	&::-webkit-slider-thumb {
+ 		@content;
+ 	}
+ 	&::-moz-range-thumb {
+ 		@content;
+ 	}
+ 	&::-ms-thumb {
+ 		@content;
+ 	}
+}
+
+@mixin range-track(){
+	&::-ms-track {
+		@content;
+	}
+}
+
+
+@mixin theme($primary-color, $rotate: 120deg, $darkenpct:20%){
+	$other-color: adjust-hue($primary-color, $rotate);
+	$other2-color: adjust-hue($primary-color, 180deg);
+	$secondary-color: adjust-hue($primary-color, -$rotate);
+
+	.btn-primary {
+		background-color: $primary-color;
+		border-color: darken($primary-color, 20%);
+		&.hover {
+		background: lighten($primary-color,20%);
+	}
+	}
+	.btn-secondary {
+		background-color: $secondary-color;
+		border-color: darken($secondary-color, 20%);
+		background: lighten($secondary-color,20%);
+	}
+	.btn-other {
+		background-color: $other-color;
+		border-color: darken($other-color, 20%);
+		background: lighten($other-color,20%);
+	}
+	.btn-other2{
+		background-color: $other2-color;
+		border-color: darken($other2-color, 20%);
+		background: lighten($other2-color,20%);
+	}
+}
+
+/* or we can do border-color as a variable mixin too => 
+
+@mixin theme($primary-color, $rotate: 120deg, $darkenpct:20%){
+	$other-color: adjust-hue($primary-color, $rotate);
+	$other2-color: adjust-hue($primary-color, 180deg);
+	$secondary-color: adjust-hue($primary-color, -$rotate);
+
+	.btn-primary {
+		@include btn-base($primary-color);
+	}
+}
+
+@mixin btn-base($bg){
+	background-color: $bg;
+	border-color: darken($bg, 20%);
+	&.hover {
+		background: lighten(staturate($bg,20%), 10%);
+	}
+}
+
+*/
+
+/* Control Flow of css with ifs and elses */ 
+
+@mixin foo($size) {
+	font-size: $size;
+	@if $size > 20 {
+		line-height: $size;
+	}
+}
+
